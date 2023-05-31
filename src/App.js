@@ -1,5 +1,11 @@
+import Popup from "./Popup";
+
 function App() {
-  return <div>안녕!</div>;
+  return (
+    <>
+      <Popup />
+    </>
+  );
 }
 
 export default App;
