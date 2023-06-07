@@ -3,7 +3,7 @@ import ProductList from "./ProductList";
 function App() {
   return (
     <>
-      <ProductList />
+      <ProductList className="container mx-auto" />
     </>
   );
 }
