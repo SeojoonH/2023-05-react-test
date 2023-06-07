@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 export default function NoRecord() {
   const [no, setNo] = useState(0);
-  const [recordedNo, setRecordedNo] = useState(0);
+  const [recordedNos, setRecordedNos] = useState([]);
 
   const saveNo = () => {
-    setRecordedNo(no);
+    setRecordedNos([...recordedNos, no]);
   };
 
   return (
@@ -19,7 +19,7 @@ export default function NoRecord() {
         기록
       </button>
       <hr />
-      기록된 숫자 : {recordedNo}
+      기록된 숫자 : [{recordedNos.join(",")}]
     </>
   );
 }
