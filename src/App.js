@@ -1,42 +1,20 @@
 import NoRecord from "./NoRecord";
 
 function App() {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
+  const fun1 = () => {
+    console.log("fun1 실행됨.");
+  };
 
-    form.name.value = form.name.value.trim();
-    if (form.name.value.length === 0) {
-      alert("이름을 입력해주세요!");
-      return;
-    }
-    form.age.value = form.age.value.trim();
-    if (form.age.value.length === 0) {
-      alert("나이를 입력해주세요!");
-      return;
-    }
-
-    const name = form.name.value;
-    const age = form.age.valueAsNumber;
-
-    alert(`이름 : ${name}, 나이 : ${age}`);
-
-    form.name.value = "";
-    form.age.value = "";
-
-    form.name.focus();
+  const fun2 = (a, b) => {
+    console.log(`fun2 실행됨 : ${a}, ${b}`);
   };
   return (
     <>
-      {/*<NoRecord />*/}
-      <form onSubmit={onSubmit}>
-        <input type="text" name="name" placeholder="이름을 입력해주세요!" />
-        <br />
-        <input type="number" name="age" placeholder="나이를 입력해주세요!" />
-        <br />
-        <input type="submit" value="전송" />
-      </form>
+      <button onClick={fun1}>함수1</button>
+      <button onClick={() => fun2(1, 2)}>함수2</button>
     </>
+    // 넘어가는 값이 있을 경우 꼭 arrowFunction 형태로 써 줘야 함
+    // 해당 형태가 아닐 경우, 바로 연결 되지 않기 때문
   );
 }
 
