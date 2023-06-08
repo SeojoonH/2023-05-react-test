@@ -1,14 +1,41 @@
 import NoRecord from "./NoRecord";
 
 function App() {
-  const nums = [1, 2, 3, 4, 5, 6, 7, 8];
-  const arr = nums.map((el, index) => <li key={index}>내용 {el}</li>);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    form.name.value = form.name.value.trim();
+    if (form.name.value.length === 0) {
+      alert("이름을 입력해주세요!");
+      return;
+    }
+    form.age.value = form.age.value.trim();
+    if (form.age.value.length === 0) {
+      alert("나이를 입력해주세요!");
+      return;
+    }
+
+    const name = form.name.value;
+    const age = form.age.valueAsNumber;
+
+    alert(`이름 : ${name}, 나이 : ${age}`);
+
+    form.name.value = "";
+    form.age.value = "";
+
+    form.name.focus();
+  };
   return (
     <>
-      <NoRecord />
-
-      <hr />
-      <ul>{arr}</ul>
+      {/*<NoRecord />*/}
+      <form onSubmit={onSubmit}>
+        <input type="text" name="name" placeholder="이름을 입력해주세요!" />
+        <br />
+        <input type="number" name="age" placeholder="나이를 입력해주세요!" />
+        <br />
+        <input type="submit" value="전송" />
+      </form>
     </>
   );
 }
