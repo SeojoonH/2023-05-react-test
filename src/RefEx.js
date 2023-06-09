@@ -19,19 +19,9 @@ export default function RefEx() {
     noInputRef.current.focus();
   };
 
-  const removeNo5 = () => {
-    const newRecordedNos = recordedNos.filter((el) => el !== 5);
+  const removeNo = (index) => {
+    const newRecordedNos = recordedNos.filter((el, _index) => _index !== index);
     setRecordedNos(newRecordedNos);
-  };
-
-  const removeLast = () => {
-    setRecordedNos(
-      recordedNos.filter((_, index) => index !== recordedNos.length - 1)
-    );
-  };
-
-  const removeFirst = () => {
-    setRecordedNos(recordedNos.filter((_, index) => index !== 0));
   };
 
   return (
@@ -50,9 +40,13 @@ export default function RefEx() {
       <h1>기록된 숫자 v1</h1>
       기록된 숫자 : [{recordedNos.join(",")}]
       <hr />
-      <button onClick={removeNo5}>숫자 5 삭제</button>
-      <button onClick={removeFirst}>첫 숫자 삭제</button>
-      <button onClick={removeLast}>마지막 숫자 삭제</button>
+      <button onClick={() => removeNo(0)}>인덱스 0 삭제</button>
+      <hr />
+      <button onClick={() => removeNo(1)}>인덱스 1 삭제</button>
+      <hr />
+      <button onClick={() => removeNo(2)}>인덱스 2 삭제</button>
+      <hr />
+      <button onClick={() => removeNo(3)}>인덱스 3 삭제</button>
     </>
   );
 }
