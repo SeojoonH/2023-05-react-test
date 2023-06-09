@@ -1,41 +1,18 @@
 import { useState, useRef } from "react";
 import NoRecord from "./NoRecord";
 
+let AppCallCount = 0;
 function App() {
-  const formInputNoRef = useRef(null);
-  // ref는 리랜더링이 되지 않음
-  const [no, setNo] = useState("");
-
-  const notice = () => {
-    formInputNoRef.current.focus();
-
-    if (!no) {
-      alert("숫자를 입력해주세요.");
-      return;
-    }
-
-    alert(`당신이 입력한 숫자는 ${no}입니다.`);
-  };
-
+  AppCallCount++;
+  console.log(`App : ${AppCallCount}`);
+  const [no1, setNo1] = useState(0);
+  const no2Ref = useRef(0);
   return (
     <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          notice();
-        }}
-      >
-        <input
-          ref={formInputNoRef}
-          type="text"
-          placeholder="숫자"
-          value={no}
-          onChange={(e) => setNo(e.target.value)}
-        />
-        <button>실행</button>
-      </form>
-      <hr />
-      <NoRecord />
+      <button onClick={() => setNo1(no1 + 1)}>숫자 1 증가 : {no1}</button>
+      <button onClick={() => no2Ref.current++}>
+        숫자 2 증가 : {no2Ref.current}
+      </button>
     </>
   );
 }
