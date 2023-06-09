@@ -3,6 +3,7 @@ import NoRecord from "./NoRecord";
 
 function App() {
   const formInputNoRef = useRef(null);
+  // ref는 리랜더링이 되지 않음
   const [no, setNo] = useState("");
 
   const notice = () => {
@@ -33,6 +34,8 @@ function App() {
         />
         <button>실행</button>
       </form>
+      <hr />
+      <NoRecord />
     </>
   );
 }
