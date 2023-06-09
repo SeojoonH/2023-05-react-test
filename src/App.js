@@ -1,21 +1,39 @@
+import { useState, useRef } from "react";
 import NoRecord from "./NoRecord";
 
 function App() {
-  const fun1 = () => {
-    console.log("fun1 실행됨.");
+  const formInputNoRef = useRef(null);
+  const [no, setNo] = useState("");
+
+  const notice = () => {
+    formInputNoRef.current.focus();
+
+    if (!no) {
+      alert("숫자를 입력해주세요.");
+      return;
+    }
+
+    alert(`당신이 입력한 숫자는 ${no}입니다.`);
   };
 
-  const fun2 = (a, b) => {
-    console.log(`fun2 실행됨 : ${a}, ${b}`);
-  };
   return (
     <>
-      <button onClick={fun1}>함수1</button>
-      <button onClick={() => fun2(1, 2)}>함수2</button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          notice();
+        }}
+      >
+        <input
+          ref={formInputNoRef}
+          type="text"
+          placeholder="숫자"
+          value={no}
+          onChange={(e) => setNo(e.target.value)}
+        />
+        <button>실행</button>
+      </form>
     </>
-    // 넘어가는 값이 있을 경우 꼭 arrowFunction 형태로 써 줘야 함
-    // 해당 형태가 아닐 경우, 바로 연결 되지 않기 때문
   );
 }
-
 export default App;

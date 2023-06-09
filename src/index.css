@@ -30,3 +30,7 @@ html > body button {
   text-underline-position: under;
   line-height: 1.3; /* 폰트 특성 */
 }
+
+.border {
+  border: 10px solid black;
+}
