@@ -1,41 +1,65 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 let AppCallCount = 0;
+let SubCallCount = 0;
 
-function App() {
-  const inputNameRef = useRef(null);
-  const inputAgeRef = useRef(null);
+function Sub({ appNo }) {
+  SubCallCount++;
+  console.log(`SubCallCount : ${SubCallCount}`);
+
   const [no, setNo] = useState(0);
+  const [no2, setNo2] = useState(0);
 
   useEffect(() => {
-    inputNameRef.current.focus();
+    console.log("effect 1 : 단 한 번 실행");
   }, []);
+
+  useEffect(() => {
+    console.log("effect 2 : 부모(App)의 appNo가 바뀔 때마다 실행");
+  }, [appNo]);
+
+  useEffect(() => {
+    console.log("effect 3 : 나(Sub)의 no가 바뀔 때마다 실행");
+  }, [no]);
+
+  useEffect(() => {
+    console.log("effect 4 : appNo 혹은, no가 바뀔 때마다 실행");
+  }, [appNo, no]);
+
+  useEffect(() => {
+    console.log("effect 5 : 매번 실행");
+  });
 
   return (
     <>
-      <input
-        ref={inputNameRef}
-        type="text"
-        placeholder="이름"
-        className="input input-bordered text text-white"
-      />
-      <hr />
-      <input
-        ref={inputAgeRef}
-        type="number"
-        placeholder="나이"
-        className="input input-bordered text text-white"
-      />
-      <hr />
-      <button
-        className="btn btn-outline"
-        onClick={() => {
-          setNo(no + 1);
-          inputAgeRef.current.focus();
-        }}
-      >
-        증가 : {no}
-      </button>
+      <div style={{ border: "10px solid blue", padding: 10 }}>
+        App no : {appNo}
+        <hr />
+        <button className="btn btn-outline" onClick={() => setNo(no + 1)}>
+          Sub no : {no}
+        </button>
+        <button className="btn btn-outline" onClick={() => setNo2(no2 + 1)}>
+          Sub no2 : {no2}
+        </button>
+      </div>
+    </>
+  );
+}
+
+function App() {
+  AppCallCount++;
+  console.log(`AppCallCount : ${AppCallCount}`);
+  const [no, setNo] = useState(0);
+
+  return (
+    <>
+      <div style={{ border: "10px solid red", padding: 10 }}>
+        <button className="btn btn-outline" onClick={() => setNo(no + 1)}>
+          App 버튼 : {no}
+        </button>
+        <hr />
+        <Sub appNo={no} />
+      </div>
     </>
   );
 }
