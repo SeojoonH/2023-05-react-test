@@ -1,41 +1,70 @@
 import React, { useState, useEffect } from "react";
 
-let AppCallCount = 0;
+function isPrimeNumber(no) {
+  for (let i = 2; i < no; i++) {
+    if (i * i > no) {
+      break;
+    }
+    if (no % i === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function getPrimeNumbers(max) {
+  const primeNumbers = [];
+
+  for (let i = 2; i <= max; i++) {
+    if (isPrimeNumber(i)) {
+      primeNumbers.push(i);
+    }
+  }
+  return primeNumbers;
+}
+
+function getPrimeNumbersCount(max) {
+  return getPrimeNumbers(max).length;
+}
 
 function App() {
-  AppCallCount++;
-  console.log(`AppCallCount : ${AppCallCount}`);
-  const [no, setNo] = useState(0);
-  const [isDark, setIsDark] = useState(false);
+  const [primeNumbersCount, setPrimeNumbersCount] = useState(0);
 
-  useEffect(() => {
-    const html = document.getElementsByTagName("html")[0];
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-    if (isDark) {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
+    const form = e.target;
+
+    form.number.value = form.number.value.trim();
+
+    if (form.number.value.length === 0) {
+      alert("숫자를 입력해 주세요!");
+      form.number.focus();
+
+      return;
     }
-  }, [isDark]);
+
+    const number = form.number.valueAsNumber;
+    form.number.focus();
+
+    const primeNumbersCount = getPrimeNumbersCount(number);
+    setPrimeNumbersCount(primeNumbersCount);
+  };
 
   return (
     <>
-      <div>
-        <button className="btn btn-outline" onClick={() => setNo(no + 1)}>
-          App 버튼 : {no}
-        </button>
-        <button className="btn btn-ontline" onClick={() => setIsDark(!isDark)}>
-          테마토글
-        </button>
+      <form onSubmit={onSubmit}>
+        <input
+          type="number"
+          name="number"
+          placeholder="숫자를 입력해주세요!"
+          defaultValue="0"
+          className="input input-bordered"
+        />
+        <input type="submit" value="확인" className="btn btn-outline" />
         <hr />
-        <div>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-          culpa omnis sed excepturi asperiores? Aliquam totam modi officia neque
-          id exercitationem necessitatibus repudiandae rem nesciunt, fugit nemo
-          unde laborum nam.
-        </div>
-        <h1 className="color-primary">안녕, 반가워!</h1>
-      </div>
+        <div>소수의 개수 : {primeNumbersCount}</div>
+      </form>
     </>
   );
 }
