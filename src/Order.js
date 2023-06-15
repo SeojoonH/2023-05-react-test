@@ -17,12 +17,23 @@ export default function Order() {
     true,
   ]);
 
+  const toggleOptionCheck = (index) => {
+    const newOptionchecks = optionChecks.map((el, _index) =>
+      _index === index ? !el : el
+    );
+    setOptionChecks(newOptionchecks);
+  };
+
   return (
     <>
       <h1>음식 주문</h1>
       <ul>
         {options.map((option, index) => (
-          <li key={option}>
+          <li
+            style={{ userSelect: "none", cursor: "pointer" }}
+            key={option}
+            onClick={() => toggleOptionCheck(index)}
+          >
             {optionChecks[index] ? "[v]" : "[ ]"}
             {option}
           </li>
