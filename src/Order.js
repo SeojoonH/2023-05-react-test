@@ -29,6 +29,7 @@ export default function Order() {
   };
 
   const btnAllcheck = optionChecks.every((el) => el);
+  const selectedCount = optionChecks.filter((el) => el).length;
 
   const toggleAllCheck = () => {
     if (btnAllcheck) {
@@ -46,7 +47,9 @@ export default function Order() {
     <>
       <h1 style={{ paddingLeft: 35 }}>음식 주문</h1>
 
-      <h2 style={{ paddingLeft: 35 }}>옵션</h2>
+      <h2 style={{ paddingLeft: 35 }}>
+        옵션 ( {selectedCount} / {options.length})
+      </h2>
 
       <span
         style={{ paddingLeft: 35, userSelect: "none", cursor: "pointer" }}
