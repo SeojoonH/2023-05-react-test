@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 
 function OrderMainFood({ mainFoodCount, setMainFoodCount }) {
   return (
@@ -19,6 +19,8 @@ function OrderMainFood({ mainFoodCount, setMainFoodCount }) {
     </>
   );
 }
+
+const MemoizedOrderMainFood = React.memo(OrderMainFood);
 
 function OrderOptions({
   selectedCount,
@@ -56,8 +58,11 @@ function OrderOptions({
   );
 }
 
+const MemoizedOrderOptions = React.memo(OrderOptions);
+
 export default function Order() {
   const [mainFoodCount, setMainFoodCount] = useState(1);
+
   const options = [
     "칠성사이다",
     "칠성사이다 제로",
@@ -73,12 +78,15 @@ export default function Order() {
     new Array(options.length).fill(false)
   );
 
-  const toggleOptionCheck = (index) => {
-    const newOptionchecks = optionChecks.map((el, _index) =>
-      _index === index ? !el : el
-    );
-    setOptionChecks(newOptionchecks);
-  };
+  const toggleOptionCheck = useCallback(
+    (index) => {
+      const newOptionchecks = optionChecks.map((el, _index) =>
+        _index === index ? !el : el
+      );
+      setOptionChecks(newOptionchecks);
+    },
+    [optionChecks]
+  );
 
   const btnAllcheck = useMemo(
     () => optionChecks.every((el) => el),
@@ -89,7 +97,7 @@ export default function Order() {
     [optionChecks]
   );
 
-  const toggleAllCheck = () => {
+  const toggleAllCheck = useCallback(() => {
     if (btnAllcheck) {
       // 전부 체크를 해제해야 함
       const newOptionchecks = optionChecks.map((el) => false);
@@ -99,17 +107,17 @@ export default function Order() {
       const newOptionchecks = optionChecks.map((el) => true);
       setOptionChecks(newOptionchecks);
     }
-  };
+  }, [optionChecks]);
 
   return (
     <>
       <h1>음식 주문</h1>
 
-      <OrderMainFood
+      <MemoizedOrderMainFood
         setMainFoodCount={setMainFoodCount}
         mainFoodCount={mainFoodCount}
       />
-      <OrderOptions
+      <MemoizedOrderOptions
         selectedCount={selectedCount}
         options={options}
         toggleAllCheck={toggleAllCheck}
