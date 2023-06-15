@@ -24,10 +24,33 @@ export default function Order() {
     setOptionChecks(newOptionchecks);
   };
 
+  const btnAllcheck = optionChecks.every((el) => el);
+
+  const toggleAllCheck = () => {
+    if (btnAllcheck) {
+      // 전부 체크를 해제해야 함
+      const newOptionchecks = optionChecks.map((el) => false);
+      setOptionChecks(newOptionchecks);
+    } else {
+      // 전부 체크 해야 함
+      const newOptionchecks = optionChecks.map((el) => true);
+      setOptionChecks(newOptionchecks);
+    }
+  };
+
   return (
     <>
-      <h1>음식 주문</h1>
-      <ul>
+      <h1 style={{ paddingLeft: 35 }}>음식 주문</h1>
+
+      <h2 style={{ paddingLeft: 35 }}>옵션</h2>
+
+      <span
+        style={{ paddingLeft: 35, userSelect: "none", cursor: "pointer" }}
+        onClick={toggleAllCheck}
+      >
+        {btnAllcheck ? "[v]" : "[ ]"}전체선택
+      </span>
+      <ul style={{ paddingLeft: 35 }}>
         {options.map((option, index) => (
           <li
             style={{ userSelect: "none", cursor: "pointer" }}
