@@ -2,20 +2,24 @@ import React, { useState } from "react";
 
 export default function Order() {
   const options = [
-    "사이다 1.5",
+    "칠성사이다",
+    "칠성사이다 제로",
+    "코카콜라",
+    "코카콜라 제로",
     "스위트칠리 소스",
     "머스타드 소스",
     "마라 소스",
     "랜치 소스",
   ];
 
-  const [optionChecks, setOptionChecks] = useState([
-    false,
-    true,
-    false,
-    false,
-    true,
-  ]);
+  // [false, false, false, false, false, false]
+  // [, , , , , ,]
+  // new Array(6).fill(false)
+  // new Array(options.length).fill(false)
+
+  const [optionChecks, setOptionChecks] = useState(
+    new Array(options.length).fill(false)
+  );
 
   const toggleOptionCheck = (index) => {
     const newOptionchecks = optionChecks.map((el, _index) =>
